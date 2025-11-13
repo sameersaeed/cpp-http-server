@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdexcept>
 
 #include <netinet/in.h>
@@ -10,13 +11,12 @@ class Client {
 public:
     Client() : conn(Socket()) {}
 
-    void connectToServer(const std::string& ip, int port) {
+    void connectToServer(const std::string_view ip, int port) {
         sockaddr_in addr{};
         addr.sin_family = DOMAIN;
-        //addr.sin_addr.s_addr = BIND_ADDRESS;
         addr.sin_port = htons(PORT);
 
-        if (inet_pton(DOMAIN, ip.c_str(), &addr.sin_addr) <= 0) {
+        if (inet_pton(DOMAIN, ip.data(), &addr.sin_addr) <= 0) {
             throw std::runtime_error("Invalid host was provided");
         }
 

@@ -1,7 +1,6 @@
 #ifndef CONNECTION_HPP
 #define CONNECTION_HPP
 
-#include <iostream>
 #include <string>
 #include <sys/socket.h>
 
@@ -15,7 +14,7 @@ public:
 
     Socket& getSocket() { return socket; }
 
-    void sendMessage(const std::string_view& message) {
+    void sendMessage(const std::string_view message) {
         ssize_t n = send(socket.get(), message.data(), message.length(), 0); 
         if (n == -1) throw std::runtime_error("Failed to send message");
     }
